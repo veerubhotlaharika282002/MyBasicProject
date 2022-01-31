@@ -5,16 +5,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
+- task: CmdLine@2
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    script: |
+      javac AddTwoNumbers.java
+      java AddTwoNumbers
+
 public class AddTwoNumbers {
 
    public static void main(String[] args) {
@@ -23,10 +19,5 @@ public class AddTwoNumbers {
       sum = num1 + num2;
 
       System.out.println("Sum of these numbers: "+sum);
-  }
+   }
 }
-- task: CmdLine@2
-  inputs:
-    script: |
-      javac AddTwoNumbers.java
-      java AddTwoNumbers
